@@ -1,0 +1,11 @@
+FROM alpine:3.8
+
+RUN apk add --no-cache \
+      bash \
+      openssl-dev
+
+# The following line should be included in the project-specific Dockerfile
+# COPY _build/prod/rel/*/bin/*.run /opt/app
+
+WORKDIR /opt/app
+CMD trap 'exit' INT; /opt/app/*.run foreground

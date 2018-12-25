@@ -1,0 +1,18 @@
+FROM elixir:1.7.4-alpine
+
+RUN apk add --no-cache \
+      bash \
+      openssl-dev \
+      make \
+      g++ \
+      ca-certificates
+
+RUN addgroup -g 3434 circleci
+RUN adduser -D -u 3434 -G circleci circleci
+
+USER circleci
+
+RUN mix local.hex --force
+RUN mix local.rebar --force
+
+CMD ["/bin/sh"]
